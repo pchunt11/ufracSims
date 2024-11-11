@@ -6,8 +6,10 @@ lengths  <- rep(1,S+(S-1))
 tree <- binary_tree(1:S)
 
 simulate_unifrac  <- function(tree,
-							  n,
+							  n_sam,
 							  non_overlap,
+							  n_loc = 2,
+							  n_treat = 1,
 							  dist = 'uniform',
 							  gate = 0){
 		species  <- tree$tip.label
@@ -22,15 +24,15 @@ simulate_unifrac  <- function(tree,
 
 		samples  <- data.frame(
 						obs = c(sample(species[1:((1-non_overlap/2)*S)],
-										 n, replace=TRUE,
+										 n_sam, replace=TRUE,
 										 prob = dist[1:((1-non_overlap/2)*S)]
 										),
 								sample(species[((non_overlap/2)*S + 1):S],
-										n, replace=TRUE,
+										n_sam, replace=TRUE,
 										prob = dist[((non_overlap/2)*S + 1):S]
 										 )),
-						sample = c(rep('sample1', n),
-								rep('sample2', n))
+						sample = c(rep('sample1', n_sam),
+								rep('sample2', n_sam))
 		)
 
 		tab <- table(samples)
@@ -41,13 +43,15 @@ simulate_unifrac  <- function(tree,
 
 		mat.g  <- rm_obs(mat, gate=gate)
 
+		#print(mat.g)
 		otu_tab  <- otu_table(mat.g,
 							  taxa_are_rows = TRUE
 		)
 		#print(otu_tab)
 		obj  <- phyloseq(otu_tab, tree)
-
-		return(UniFrac(obj))
+		Uni  <- UniFrac(obj)
+        #print(obj)
+		return(Uni)
 }
 
-#simulate_unifrac(binary_tree(1:2^10), 2^9, 0.25)
+simulate_unifrac(binary_tree(1:2^10), 5.25*2^10, 0)

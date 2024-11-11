@@ -1,6 +1,8 @@
 source('unifrac_simulation.R')
 library(dplyr)
 library(ggplot2)
+library(doParallel)
+registerDoParallel(cores=8)
 
 S  <- 2^10
 tree <- binary_tree(1:S, 1)
@@ -12,24 +14,20 @@ bin_dist <- dbinom(1:S, size=S, prob=0.5)
 ## Simulations
 #simulation  <- unifrac_simulation(1000,
 #								  tree,
-#								  S,
-#								  size,
+#								  #								  size,
 #								  0)
 #
 unif_ng.100 <- unifrac_simulation(100,
 								  tree,
-								  S,
 								  size,
 								  0)
 unif_g.100  <- unifrac_simulation(100,
 								  tree,
-								  S,
 								  size,
 								  0,
 								  gate=1/S)
 bin_g.100  <- unifrac_simulation(100,
 								 tree,
-								 S,
 								 size,
 								 0,
 								 dist = bin_dist,
@@ -37,7 +35,6 @@ bin_g.100  <- unifrac_simulation(100,
 								 )
 bin_ng.100  <- unifrac_simulation(100,
 								 tree,
-								 S,
 								 size,
 								 0,
 								 dist = bin_dist,
@@ -72,18 +69,15 @@ dev.off()
 ## 90% Overlap ##
 unif_ng.90  <- unifrac_simulation(100,
 								  tree,
-								  S,
 								  size,
 								  0.1)
 unif_g.90  <- unifrac_simulation(100,
 								  tree,
-								  S,
 								  size,
 								  0.1,
 								  gate=1/S)
 bin_g.90  <- unifrac_simulation(100,
 								 tree,
-								 S,
 								 size,
 								 0.1,
 								 dist = bin_dist,
@@ -91,7 +85,6 @@ bin_g.90  <- unifrac_simulation(100,
 								 )
 bin_ng.90  <- unifrac_simulation(100,
 								 tree,
-								 S,
 								 size,
 								 0.1,
 								 dist = bin_dist,
@@ -126,18 +119,15 @@ dev.off()
 ## 75% Overlap ##
 unif_ng.75  <- unifrac_simulation(100,
 								  tree,
-								  S,
 								  size,
 								  0.25)
 unif_g.75  <- unifrac_simulation(100,
 								  tree,
-								  S,
 								  size,
 								  0.25,
 								  gate=1/S)
 bin_g.75  <- unifrac_simulation(100,
 								 tree,
-								 S,
 								 size,
 								 0.25,
 								 dist = bin_dist,
@@ -145,7 +135,6 @@ bin_g.75  <- unifrac_simulation(100,
 								 )
 bin_ng.75  <- unifrac_simulation(100,
 								 tree,
-								 S,
 								 size,
 								 0.25,
 								 dist = bin_dist,
@@ -181,18 +170,15 @@ dev.off()
 ## 50% Overlap ##
 unif_ng.50  <- unifrac_simulation(100,
 								  tree,
-								  S,
 								  size,
 								  0.5)
 unif_g.50  <- unifrac_simulation(100,
 								  tree,
-								  S,
 								  size,
 								  0.5,
 								  gate=1/S)
 bin_g.50  <- unifrac_simulation(100,
 								 tree,
-								 S,
 								 size,
 								 0.5,
 								 dist = bin_dist,
@@ -200,7 +186,6 @@ bin_g.50  <- unifrac_simulation(100,
 								 )
 bin_ng.50  <- unifrac_simulation(100,
 								 tree,
-								 S,
 								 size,
 								 0.5,
 								 dist = bin_dist,
@@ -236,18 +221,15 @@ dev.off()
 ## 25% Overlap ##
 unif_ng.25  <- unifrac_simulation(100,
 								  tree,
-								  S,
 								  size,
 								  0.75)
 unif_g.25  <- unifrac_simulation(100,
 								  tree,
-								  S,
 								  size,
 								  0.75,
 								  gate=1/S)
 bin_g.25  <- unifrac_simulation(100,
 								 tree,
-								 S,
 								 size,
 								 0.75,
 								 dist = bin_dist,
@@ -255,7 +237,6 @@ bin_g.25  <- unifrac_simulation(100,
 								 )
 bin_ng.25  <- unifrac_simulation(100,
 								 tree,
-								 S,
 								 size,
 								 0.75,
 								 dist = bin_dist,
@@ -291,18 +272,15 @@ dev.off()
 ## 10% Overlap ##
 unif_ng.10  <- unifrac_simulation(100,
 								  tree,
-								  S,
 								  size,
 								  0.9)
 unif_g.10  <- unifrac_simulation(100,
 								  tree,
-								  S,
 								  size,
 								  0.9,
 								  gate=1/S)
 bin_g.10  <- unifrac_simulation(100,
 								 tree,
-								 S,
 								 size,
 								 0.9,
 								 dist = bin_dist,
@@ -310,7 +288,6 @@ bin_g.10  <- unifrac_simulation(100,
 								 )
 bin_ng.10  <- unifrac_simulation(100,
 								 tree,
-								 S,
 								 size,
 								 0.9,
 								 dist = bin_dist,
@@ -346,18 +323,15 @@ dev.off()
 ## 1% Overlap ##
 unif_ng.01  <- unifrac_simulation(100,
 								  tree,
-								  S,
 								  size,
 								  0.99)
 unif_g.01  <- unifrac_simulation(100,
 								  tree,
-								  S,
 								  size,
 								  0.99,
 								  gate=1/S)
 bin_g.01  <- unifrac_simulation(100,
 								 tree,
-								 S,
 								 size,
 								 0.99,
 								 dist = bin_dist,
@@ -365,7 +339,6 @@ bin_g.01  <- unifrac_simulation(100,
 								 )
 bin_ng.01  <- unifrac_simulation(100,
 								 tree,
-								 S,
 								 size,
 								 0.99,
 								 dist = bin_dist,
@@ -401,18 +374,15 @@ dev.off()
 ## 0.5% Overlap ##
 unif_ng.005  <- unifrac_simulation(100,
 								  tree,
-								  S,
 								  size,
 								  0.995)
 unif_g.005  <- unifrac_simulation(100,
 								  tree,
-								  S,
 								  size,
 								  0.995,
 								  gate=1/S)
 bin_g.005  <- unifrac_simulation(100,
 								 tree,
-								 S,
 								 size,
 								 0.995,
 								 dist = bin_dist,
@@ -420,7 +390,6 @@ bin_g.005  <- unifrac_simulation(100,
 								 )
 bin_ng.005  <- unifrac_simulation(100,
 								 tree,
-								 S,
 								 size,
 								 0.995,
 								 dist = bin_dist,
@@ -456,26 +425,22 @@ dev.off()
 ## 0% Overlap ##
 unif_ng.0  <- unifrac_simulation(100,
 								  tree,
-								  S,
-								  size,
+        						  size,
 								  1)
 unif_g.0  <- unifrac_simulation(100,
 								  tree,
-								  S,
 								  size,
 								  1,
 								  gate=1/S)
 bin_g.0  <- unifrac_simulation(100,
 								 tree,
-								 S,
-								 size,
+							     size,
 								 1,
 								 dist = bin_dist,
 								 gate=1/S
 								 )
 bin_ng.0  <- unifrac_simulation(100,
 								 tree,
-								 S,
 								 size,
 								 1,
 								 dist = bin_dist,
